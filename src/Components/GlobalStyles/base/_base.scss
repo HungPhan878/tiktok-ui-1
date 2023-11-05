@@ -1,0 +1,76 @@
+@use "../abstracts";
+
+*,
+::after,
+::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: 1.6rem;
+  text-rendering: optimizespeed;
+  line-height: 1.5;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  user-select: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+}
+
+input,
+textarea,
+button,
+select,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  outline: none;
+  border: none;
+  background-color: transparent;
+}
+
+// fonts embed
+@font-face {
+  font-family: TikTokDisplayFont;
+  src: url(/assets/fonts/TikTokDisplayFont-Bold.woff2);
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: TikTokFont;
+  src: url(/assets/fonts/TikTokFont-Bold.woff2);
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: TikTokFont;
+  src: url(/assets/fonts/TikTokFont-Semibold.woff2);
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: TikTokFont;
+  src: url(/assets/fonts/TikTokFont-Regular.woff2);
+  font-weight: 400;
+}
