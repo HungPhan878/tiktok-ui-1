@@ -1,0 +1,12 @@
+.wrapper {
+  padding-top: 8px;
+  width: 100%;
+  background-color: var(--white-color);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 12px;
+  border-radius: 8px;
+  max-height: min((100vh - 96px) - 60px, 734px);
+  // position: relative;
+  // z-index: 999;
+  //   overflow: hidden auto;
+}
+
