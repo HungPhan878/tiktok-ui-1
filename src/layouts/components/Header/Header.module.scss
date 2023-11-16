@@ -115,6 +115,31 @@
 // actions
 .actions {
   display: flex;
+  align-items: center;
+}
+
+// current user
+.user {
+  &-icon,
+  &-avatar {
+    cursor: pointer;
+  }
+
+  &-icon {
+    width: 48px;
+    height: 48px;
+    margin-left: 12px;
+    font-size: 2.6rem;
+    color: var(--text-color);
+  }
+
+  &-avatar {
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-left: 24px;
+  }
 }
 
 // menu
