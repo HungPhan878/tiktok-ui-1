@@ -1,9 +1,7 @@
 // library
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Tippy from "@tippyjs/react/headless";
 import TippyMessage from "@tippyjs/react";
-import { useState, useEffect } from "react";
 
 // scss
 import styles from "./Header.module.scss";
@@ -11,24 +9,32 @@ import "tippy.js/dist/tippy.css";
 
 // components
 import icons from "~/assets/icons";
-import { Wrapper as PopperWrapper } from "~/Components/Popper";
 import Menu from "~/Components/Popper/Menu";
 
 import {
-  faCircleQuestion,
-  faCircleXmark,
-  faCloudDownload,
   faEarthAsia,
   faEllipsisVertical,
-  faJetFighter,
-  faKeyboard,
   faPlus,
-  faSearch,
-  faSpinner,
 } from "@fortawesome/free-solid-svg-icons";
-import AccountItem from "../AccountItem";
 import Button from "~/Components/Button";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
+import {
+  faEnvelopeOpen,
+  faLightbulb,
+  faUser,
+} from "@fortawesome/free-regular-svg-icons";
+import {
+  Dark,
+  Favorites,
+  Feedback,
+  Keyboard,
+  Logout,
+  Message,
+  Setting,
+  Upload,
+} from "~/Components/Icons";
+import Image from "~/Components/Image";
+import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
+import Search from "../Search";
 
 const cx = classNames.bind(styles);
 
@@ -55,12 +61,12 @@ const MENU_ITEMS = [
   },
   {
     title: "Feedback and help",
-    image: <FontAwesomeIcon icon={faCircleQuestion} />,
+    image: <Feedback />,
     to: "/feedback",
   },
   {
     title: "Keyboard shortcuts",
-    image: <FontAwesomeIcon icon={faKeyboard} />,
+    image: <Keyboard />,
   },
 ];
 
@@ -73,46 +79,39 @@ const USER_ITEMS = [
   },
   {
     title: "Favorites",
-    image: <FontAwesomeIcon icon={faCircleQuestion} />,
+    image: <Favorites />,
     to: "/following",
   },
   {
     title: "Settings",
-    image: <FontAwesomeIcon icon={faCircleQuestion} />,
+    image: <Setting />,
     to: "/settings",
   },
   {
     title: "Get Coins",
-    image: <FontAwesomeIcon icon={faCircleQuestion} />,
+    image: <FontAwesomeIcon icon={faBitcoin} />,
     to: "/coins",
   },
   {
     title: "LIVE Creator Hub",
-    image: <FontAwesomeIcon icon={faCircleQuestion} />,
+    image: <FontAwesomeIcon icon={faLightbulb} />,
     to: "/live",
   },
   ...MENU_ITEMS,
   {
     title: "Dark mode",
-    image: <FontAwesomeIcon icon={faCircleQuestion} />,
+    image: <Dark />,
   },
   {
     title: "Log out",
-    image: <FontAwesomeIcon icon={faCircleQuestion} />,
+    image: <Logout />,
     to: "/",
     separate: true,
   },
 ];
 
 function Header() {
-  const [searchResult, setSearchResult] = useState([]);
   let currentUser = true;
-
-  useEffect(() => {
-    setTimeout(() => {
-      setSearchResult([1, 2, 3]);
-    }, 3000);
-  }, []);
 
   // handle function
   const handleMenuChange = (menuItem) => {
@@ -135,50 +134,7 @@ function Header() {
         </div>
 
         {/* search */}
-        <div>
-          <Tippy
-            interactive
-            visible={searchResult.length > 0}
-            render={(attrs) => (
-              <div className={cx("search-result")} tabIndex="-1" {...attrs}>
-                <PopperWrapper>
-                  <div className={cx("search-inner")}>
-                    <p className={cx("search-title")}>Accounts</p>
-
-                    <AccountItem />
-                    <AccountItem />
-                    <AccountItem />
-                  </div>
-                </PopperWrapper>
-              </div>
-            )}
-            placement="bottom-start"
-          >
-            <div className={cx("search")}>
-              <input
-                placeholder="Search"
-                spellCheck={false}
-                className={cx("search-input")}
-              />
-
-              {/* clear */}
-              <button className={cx("search-clear")}>
-                <FontAwesomeIcon icon={faCircleXmark} />
-              </button>
-
-              {/* loading */}
-              <FontAwesomeIcon
-                icon={faSpinner}
-                className={cx("search-loading")}
-              />
-
-              {/* btn */}
-              <button className={cx("search-btn")}>
-                <FontAwesomeIcon icon={faSearch} />
-              </button>
-            </div>
-          </Tippy>
-        </div>
+        <Search />
 
         {/* actions */}
         <div className={cx("actions")}>
@@ -186,13 +142,21 @@ function Header() {
             <>
               <TippyMessage content="Upload" delay={[0, 200]}>
                 <button className={cx("user-icon")}>
-                  <FontAwesomeIcon icon={faCloudDownload} />
+                  <Upload />
                 </button>
               </TippyMessage>
 
-              <button className={cx("user-icon")}>
-                <FontAwesomeIcon icon={faJetFighter} />
-              </button>
+              <TippyMessage content="Message" delay={[0, 200]}>
+                <button className={cx("user-icon")}>
+                  <Message />
+                </button>
+              </TippyMessage>
+
+              <TippyMessage content="Inbox" delay={[0, 200]}>
+                <button className={cx("user-icon", { "user-icon__qnt": true })}>
+                  <FontAwesomeIcon icon={faEnvelopeOpen} />
+                </button>
+              </TippyMessage>
             </>
           ) : (
             <>
@@ -213,10 +177,11 @@ function Header() {
             onChange={handleMenuChange}
           >
             {currentUser ? (
-              <img
+              <Image
                 className={cx("user-avatar")}
-                src="https://p16-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/07f1e80e2f1def9567b5c97fe411c10e.jpeg?x-expires=1700226000&x-signature=7Ppw8uI0y%2FYThfqBbuLEyzmnxq8%3D"
+                src="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/e7d66bee6ae558ad37a79c4912763f36~c5_100x100.jpeg?x-expires=1700398800&x-signature=8Nm9A1PA0UHDbcAoDXqo3I9VXrM%3D"
                 alt="avatar"
+                fallback="https://fullstack.edu.vn/static/media/f8-icon.18cd71cfcfa33566a22b.png"
               />
             ) : (
               <>
