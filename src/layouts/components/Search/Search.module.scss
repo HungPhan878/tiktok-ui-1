@@ -59,6 +59,20 @@
     position: absolute;
     right: calc(var(--width-button) + 12px);
     color: var(--search-btn-color);
+    cursor: pointer;
+  }
+
+  &-loading {
+    animation: spinner 1s infinite linear;
+  }
+
+  @keyframes spinner {
+    from {
+      rotate: 0deg;
+    }
+    to {
+      rotate: 360deg;
+    }
   }
 
   &-btn {
@@ -84,6 +98,5 @@
   }
 
   &-clear {
-    cursor: pointer;
   }
 }

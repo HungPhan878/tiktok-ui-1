@@ -15,19 +15,36 @@ import styles from "./Search.module.scss";
 // components
 import { Wrapper as PopperWrapper } from "~/Components/Popper";
 import AccountItem from "../AccountItem";
+import { useDebounce } from "~/hooks";
+import * as searchService from "~/apiServices";
 
 const cx = classNames.bind(styles);
 function Search() {
   const [searchResult, setSearchResult] = useState([]);
   const [showResult, setShowResult] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const debounceValue = useDebounce(searchValue, 500);
   const inputRef = useRef();
 
   useEffect(() => {
-    setTimeout(() => {
-      setSearchResult([1, 2, 3]);
-    }, 3000);
-  }, []);
+    if (!debounceValue.trim()) {
+      setSearchResult([]);
+      return;
+    }
+
+    // call api
+    const fetchApi = async () => {
+      setLoading(true);
+
+      const res = await searchService.search(debounceValue);
+
+      setSearchResult(res);
+      setLoading(false);
+    };
+
+    fetchApi();
+  }, [debounceValue]);
 
   //   handle function
   function handleClear() {
@@ -40,6 +57,16 @@ function Search() {
     setShowResult(false);
   }
 
+  // handle loai bo space
+  // hong ghi vao effect vi se bi render hong can thiet nen ghi vao day se it bi render hon.
+  function handleChange(e) {
+    const searchValue = e.target.value;
+
+    if (!searchValue.startsWith(" ")) {
+      setSearchValue(e.target.value);
+    }
+  }
+
   return (
     <div>
       <Tippy
@@ -50,10 +77,9 @@ function Search() {
             <PopperWrapper>
               <div className={cx("search-inner")}>
                 <p className={cx("search-title")}>Accounts</p>
-
-                <AccountItem />
-                <AccountItem />
-                <AccountItem />
+                {searchResult.map((result) => (
+                  <AccountItem key={result.id} data={result} />
+                ))}
               </div>
             </PopperWrapper>
           </div>
@@ -68,19 +94,24 @@ function Search() {
             placeholder="Search"
             spellCheck={false}
             className={cx("search-input")}
-            onChange={(e) => setSearchValue(e.target.value)}
+            onChange={handleChange}
             onFocus={() => setShowResult(true)}
           />
 
           {/* clear */}
-          {!!searchValue && (
+          {!!searchValue && !loading && (
             <button className={cx("search-clear")} onClick={handleClear}>
               <FontAwesomeIcon icon={faCircleXmark} />
             </button>
           )}
 
           {/* loading */}
-          {/* <FontAwesomeIcon icon={faSpinner} className={cx("search-loading")} /> */}
+          {loading && (
+            <FontAwesomeIcon
+              icon={faSpinner}
+              className={cx("search-loading")}
+            />
+          )}
 
           {/* btn */}
           <button className={cx("search-btn")}>

@@ -4,30 +4,30 @@ import Following from "~/pages/Following";
 import Search from "~/pages/Search";
 import Upload from "~/pages/Upload";
 import { HeaderOnly } from "~/layouts";
+import config from "~/config";
 
 const publicRoutes = [
   {
-    path: "/",
+    path: config.routes.home,
     component: Home,
   },
   {
-    path: "/profile",
+    path: config.routes.profile,
     component: Profile,
   },
   {
-    path: "/following",
+    path: config.routes.following,
     component: Following,
   },
   {
-    path: "/search",
+    path: config.routes.search,
     component: Search,
-    layout:null,
+    layout: null,
   },
   {
-    path: "/upload",
+    path: config.routes.upload,
     component: Upload,
-    layout:HeaderOnly,
-
+    layout: HeaderOnly,
   },
 ];
 

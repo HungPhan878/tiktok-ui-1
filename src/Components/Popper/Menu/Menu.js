@@ -12,7 +12,12 @@ import MenuItem from "./MenuItem";
 import HeaderMenu from "./HeaderMenu";
 
 const cx = classNames.bind(styles);
-function Menu({ items = [], children, onChange = () => {} }) {
+function Menu({
+  items = [],
+  children,
+  onChange = () => {},
+  hideOnClick = false,
+}) {
   const [history, setHistory] = useState([{ data: items }]);
   const current = history[history.length - 1];
 
@@ -56,11 +61,12 @@ function Menu({ items = [], children, onChange = () => {} }) {
                   }
                 />
               )}
-              {renderMenuItem()}
+              <div className={cx("menu-body")}>{renderMenuItem()}</div>
             </PopperWrapper>
-          </div>
+          </div>  
         )}
         onHide={() => setHistory((prev) => prev.slice(0, 1))}
+        hideOnClick={hideOnClick}
       >
         {children}
       </Tippy>

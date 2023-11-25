@@ -27,9 +27,11 @@
     @extend %flexSpaceBetween;
     height: 100%;
   }
+
+  &-logo {
+    display: flex;
+  }
 }
-
-
 
 // actions
 .actions {

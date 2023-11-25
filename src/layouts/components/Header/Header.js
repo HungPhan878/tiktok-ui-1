@@ -2,6 +2,7 @@
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TippyMessage from "@tippyjs/react";
+import { Link } from "react-router-dom";
 
 // scss
 import styles from "./Header.module.scss";
@@ -35,6 +36,7 @@ import {
 import Image from "~/Components/Image";
 import { faBitcoin } from "@fortawesome/free-brands-svg-icons";
 import Search from "../Search";
+import config from "~/config";
 
 const cx = classNames.bind(styles);
 
@@ -75,7 +77,7 @@ const USER_ITEMS = [
   {
     title: "View profile",
     image: <FontAwesomeIcon icon={faUser} />,
-    to: "/profile",
+    to: config.routes.profile,
   },
   {
     title: "Favorites",
@@ -129,9 +131,9 @@ function Header() {
     <header className={cx("header")}>
       <div className={cx("header-inner")}>
         {/* logo */}
-        <div className={cx("header-logo")}>
+        <Link to={config.routes.home} className={cx("header-logo")}>
           <img src={icons.logo} alt="TIKTOK" />
-        </div>
+        </Link>
 
         {/* search */}
         <Search />
