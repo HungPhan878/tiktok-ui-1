@@ -2,6 +2,7 @@
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import classNames from "classnames/bind";
+import PropTypes from "prop-types";
 
 // scss
 import styles from "./Menu.module.scss";
@@ -20,5 +21,10 @@ function HeaderMenu({ title, onBack }) {
     </div>
   );
 }
+
+HeaderMenu.propTypes = {
+  title: PropTypes.string.isRequired,
+  onBack: PropTypes.func,
+};
 
 export default HeaderMenu;

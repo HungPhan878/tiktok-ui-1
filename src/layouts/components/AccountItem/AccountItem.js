@@ -1,5 +1,6 @@
 // library
 import classNames from "classnames/bind";
+import PropTypes from "prop-types"; // ES6
 
 // scss
 import styles from "./AccountItem.module.scss";
@@ -35,5 +36,9 @@ function AccountItem({ data }) {
     </Link>
   );
 }
+
+AccountItem.propTypes = {
+  data: PropTypes.object.isRequired,
+};
 
 export default AccountItem;
