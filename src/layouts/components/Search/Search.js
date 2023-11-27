@@ -14,9 +14,9 @@ import styles from "./Search.module.scss";
 
 // components
 import { Wrapper as PopperWrapper } from "~/Components/Popper";
-import AccountItem from "../AccountItem";
 import { useDebounce } from "~/hooks";
 import * as searchService from "~/apiServices";
+import RenderSearch from "./RenderSearch";
 
 const cx = classNames.bind(styles);
 function Search() {
@@ -67,23 +67,25 @@ function Search() {
     }
   }
 
+  // handle render
+
+  const handleRender = (attrs) => (
+    <div className={cx("search-result")} tabIndex="-1" {...attrs}>
+      <PopperWrapper>
+        <div className={cx("search-inner")}>
+          <p className={cx("search-title")}>Accounts</p>
+          <RenderSearch data={searchResult} />
+        </div>
+      </PopperWrapper>
+    </div>
+  );
+
   return (
     <div>
       <Tippy
         interactive
         visible={showResult && searchResult.length > 0}
-        render={(attrs) => (
-          <div className={cx("search-result")} tabIndex="-1" {...attrs}>
-            <PopperWrapper>
-              <div className={cx("search-inner")}>
-                <p className={cx("search-title")}>Accounts</p>
-                {searchResult.map((result) => (
-                  <AccountItem key={result.id} data={result} />
-                ))}
-              </div>
-            </PopperWrapper>
-          </div>
-        )}
+        render={handleRender}
         placement="bottom-start"
         onClickOutside={handleHideResult}
       >
