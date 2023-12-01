@@ -1,8 +1,16 @@
 // framework
 import PropTypes from "prop-types";
+import classNames from "classnames/bind";
+
+// scss
+import styles from "./Menu.module.scss";
+
+// components
+
+const cx = classNames.bind(styles);
 
 function Menu({ children }) {
-  return <nav>{children}</nav>;
+  return <nav className={cx("nav-menu")}>{children}</nav>;
 }
 
 Menu.propTypes = {

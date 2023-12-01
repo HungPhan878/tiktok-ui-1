@@ -20,6 +20,7 @@ import {
   SingIconActive,
   HomeIconActive,
 } from "~/Components/Icons";
+import FollowingAccounts from "~/Components/FollowingAccounts";
 
 const cx = classNames.bind(styles);
 
@@ -59,6 +60,9 @@ function Sidebar() {
           to={config.routes.profile}
         />
       </Menu>
+
+      {/* following accounts */}
+      <FollowingAccounts title="Following accounts" />
     </aside>
   );
 }
