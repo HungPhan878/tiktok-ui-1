@@ -16,8 +16,8 @@ function FollowingAccounts({ title }) {
       <p className={cx("title")}>{title}</p>
       <div className={cx("account-list")}>
         <AccountItem />
-        <AccountItem />
-        <AccountItem />
+        {/* <AccountItem />
+        <AccountItem /> */}
       </div>
       <div>
         <button className={cx("more-btn")}>See more</button>
