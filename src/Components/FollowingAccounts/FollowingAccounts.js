@@ -10,17 +10,22 @@ import AccountItem from "./AccountItem";
 
 const cx = classNames.bind(styles);
 
-function FollowingAccounts({ title }) {
+function FollowingAccounts({ title, data = [], onSeeMore, isSeeMore }) {
   return (
     <div className={cx("wrapper")}>
       <p className={cx("title")}>{title}</p>
       <div className={cx("account-list")}>
-        <AccountItem />
-        {/* <AccountItem />
-        <AccountItem /> */}
+        {data.map((account) => (
+          <AccountItem key={account.id} data={account} />
+        ))}
       </div>
       <div>
-        <button className={cx("more-btn")}>See more</button>
+        <button
+          className={cx("more-btn")}
+          onClick={() => onSeeMore(!isSeeMore)}
+        >
+          {isSeeMore ? "See less" : "See more"}
+        </button>
       </div>
     </div>
   );
@@ -28,6 +33,9 @@ function FollowingAccounts({ title }) {
 
 FollowingAccounts.propTypes = {
   title: PropTypes.string.isRequired,
+  data: PropTypes.array,
+  onSeeMore: PropTypes.func,
+  isSeeMore: PropTypes.bool,
 };
 
 export default FollowingAccounts;

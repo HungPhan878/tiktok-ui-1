@@ -12,32 +12,44 @@ import Button from "~/Components/Button";
 
 const cx = classNames.bind(styles);
 
-function AccountPreview() {
+function AccountPreview({ data }) {
   return (
     <div className={cx("wrapper")}>
       <div className={cx("row")}>
-        <img
-          src="https://p16-sign-sg.tiktokcdn.com/aweme/100x100/tos-alisg-avt-0068/337d132142ae8293565481eefb288893.jpeg?x-expires=1701612000&x-signature=FJUONdUlhgmBAXq2fwS1wNWbNlg%3D"
-          alt=""
-          className={cx("avatar")}
-        />
+        <img src={data.avatar} alt={data.nickname} className={cx("avatar")} />
         <Button primary>Follow</Button>
       </div>
       <div className={cx("info")}>
         <p className={cx("nickname")}>
-          <strong>callmerabbet</strong>
-          <FontAwesomeIcon icon={faCheckCircle} className={cx("check")} />
+          <strong>{data.nickname}</strong>
+          {data.tick && (
+            <FontAwesomeIcon icon={faCheckCircle} className={cx("check")} />
+          )}
         </p>
-        <p className={cx("name")}>𝐋𝐢𝐧𝐡 𝐑𝐚𝐛𝐛𝐞𝐭 🐰🤌🏻</p>
-      <div className={cx("analytics")}>
-        <span className={cx("qtn")}>6.7M</span>
-        <span className={cx("label")}>Followers</span>
-        <span className={cx("qtn")}>495.9M</span>
-        <span className={cx("label")}>Likes</span>
-      </div>
+        <p className={cx("name")}>
+          {data.first_name} {data.last_name}
+        </p>
+        <div className={cx("analytics")}>
+          <span className={cx("qtn")}>
+            {data.followers_count > 999.999
+              ? `${data.followers_count}M`
+              : data.followers_count}
+          </span>
+          <span className={cx("label")}>Followers</span>
+          <span className={cx("qtn")}>
+            {data.likes_count > 999.999
+              ? `${data.likes_count}M`
+              : data.likes_count}
+          </span>
+          <span className={cx("label")}>Likes</span>
+        </div>
       </div>
     </div>
   );
 }
+
+AccountPreview.propTypes = {
+  data: PropTypes.object.isRequired,
+};
 
 export default AccountPreview;

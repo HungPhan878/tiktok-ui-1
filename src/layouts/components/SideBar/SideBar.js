@@ -2,6 +2,7 @@
 import classNames from "classnames/bind";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faVideoCamera } from "@fortawesome/free-solid-svg-icons";
+import React, { useState, useEffect } from "react";
 
 // scss
 import styles from "./Sidebar.module.scss";
@@ -21,10 +22,39 @@ import {
   HomeIconActive,
 } from "~/Components/Icons";
 import FollowingAccounts from "~/Components/FollowingAccounts";
+import { userService } from "~/apiServices";
 
 const cx = classNames.bind(styles);
 
+// Constant
+
+const INIT_PAGE = 1;
+const PER_PAGE = 5;
+
 function Sidebar() {
+  const [page, setPage] = useState(INIT_PAGE);
+  const [isSeeMore, setIsSeeMore] = useState(false);
+  const [suggestedUser, setSuggestedUser] = useState([]);
+
+  useEffect(() => {
+    userService
+      .suggested({ page, perPage: PER_PAGE })
+      .then((data) => setSuggestedUser((prev) => [...prev, ...data]))
+      .catch((error) => console.log(error));
+  }, [page]);
+
+  // handle
+
+  const handleViewChange = (isSeeMore) => {
+    setIsSeeMore((prevState) => !prevState);
+
+    if (isSeeMore) {
+      setPage((prev) => prev + 1);
+    } else {
+      setSuggestedUser((prev) => prev.slice(0, 5));
+    }
+  };
+
   return (
     <aside className={cx("wrapper")}>
       <Menu>
@@ -62,7 +92,12 @@ function Sidebar() {
       </Menu>
 
       {/* following accounts */}
-      <FollowingAccounts title="Following accounts" />
+      <FollowingAccounts
+        data={suggestedUser}
+        title="Following accounts"
+        isSeeMore={isSeeMore}
+        onSeeMore={handleViewChange}
+      />
     </aside>
   );
 }
