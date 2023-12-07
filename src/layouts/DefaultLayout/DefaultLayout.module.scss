@@ -6,5 +6,16 @@
 
 .content {
   flex: 1;
-  min-height: 1000px;
+  margin-left: 232px;
 }
+
+.sidebar {
+  // height: calc(100vh - 60px);
+  // overflow-y: auto;
+  // overscroll-behavior: contain;
+  position: fixed;
+}
+
+// lam scrollbar
+// c1:cho over vao ca hai layout sidebar and content
+// c2:cho sidebar = sticky or fixed va chi cuon sidebar thoi.

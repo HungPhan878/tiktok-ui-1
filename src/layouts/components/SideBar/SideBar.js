@@ -56,49 +56,63 @@ function Sidebar() {
   };
 
   return (
-    <aside className={cx("wrapper")}>
-      <Menu>
-        <MenuItem
-          title="For You"
-          icon={<HomeIcon />}
-          activeIcon={<HomeIconActive />}
-          to={config.routes.home}
-        />
-        <MenuItem
-          title="Following"
-          icon={<UserIcon />}
-          activeIcon={<FollowingIconActive />}
-          to={config.routes.following}
-        />
-        <MenuItem
-          title="Explore"
-          icon={<ExploreIcon />}
-          activeIcon={<ExploreIconActive />}
-          to={config.routes.explore}
-        />
-        <MenuItem
-          title="LIVE"
-          icon={<FontAwesomeIcon icon={faVideoCamera} />}
-          activeIcon={<FontAwesomeIcon icon={faVideoCamera} />}
-          to={config.routes.live}
-          displayFlex={"flex"}
-        />
-        <MenuItem
-          title="Profile"
-          icon={<SingleIcon />}
-          activeIcon={<SingIconActive />}
-          to={config.routes.profile}
-        />
-      </Menu>
+   
+      <aside className={cx("wrapper")}>
+        <Menu>
+          <MenuItem
+            title="For You"
+            icon={<HomeIcon />}
+            activeIcon={<HomeIconActive />}
+            to={config.routes.home}
+          />
+          <MenuItem
+            title="Following"
+            icon={<UserIcon />}
+            activeIcon={<FollowingIconActive />}
+            to={config.routes.following}
+          />
+          <MenuItem
+            title="Explore"
+            icon={<ExploreIcon />}
+            activeIcon={<ExploreIconActive />}
+            to={config.routes.explore}
+          />
+          <MenuItem
+            title="LIVE"
+            icon={<FontAwesomeIcon icon={faVideoCamera} />}
+            activeIcon={<FontAwesomeIcon icon={faVideoCamera} />}
+            to={config.routes.live}
+            displayFlex={"flex"}
+          />
+          <MenuItem
+            title="Profile"
+            icon={<SingleIcon />}
+            activeIcon={<SingIconActive />}
+            to={config.routes.profile}
+          />
+        </Menu>
 
-      {/* following accounts */}
-      <FollowingAccounts
-        data={suggestedUser}
-        title="Following accounts"
-        isSeeMore={isSeeMore}
-        onSeeMore={handleViewChange}
-      />
-    </aside>
+        {/* following accounts */}
+        <FollowingAccounts
+          data={suggestedUser}
+          title="Following accounts"
+          isSeeMore={isSeeMore}
+          onSeeMore={handleViewChange}
+        />
+        <FollowingAccounts
+          data={suggestedUser}
+          title="Following accounts"
+          isSeeMore={isSeeMore}
+          onSeeMore={handleViewChange}
+        />
+        <FollowingAccounts
+          data={suggestedUser}
+          title="Following accounts"
+          isSeeMore={isSeeMore}
+          onSeeMore={handleViewChange}
+        />
+      </aside>
+   
   );
 }
 
